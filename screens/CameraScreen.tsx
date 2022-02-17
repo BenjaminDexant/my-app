@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { Camera } from 'expo-camera';
 
@@ -6,8 +6,13 @@ export default function CameraScreen() {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
-  const handlePress = () => {
-    console.log('pressed');
+  const cameraRef = useRef(null);
+
+  const handlePress = async () => {
+    if (cameraRef.current) {
+      const pictureMetadata = await cameraRef.current.takePictureAsync();
+      console.log("pictureMetadata", pictureMetadata);
+    }
   };
 
   useEffect(() => {
@@ -26,7 +31,7 @@ export default function CameraScreen() {
 
   return (
     <>
-      <Camera style={styles.camera} type={type} />
+      <Camera style={styles.camera} type={type} ref={cameraRef} />
       <Button
         title='Take picture'
         onPress={handlePress}
