@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
@@ -16,7 +15,7 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName: string | undefined;
+            let iconName: React.ComponentProps<typeof AntDesign>["name"] = 'key';
 
             if (route.name === 'Camera') {
               iconName = focused
@@ -26,8 +25,8 @@ export default function App() {
               iconName = "picture";
             } else if (route.name === 'Feed') {
                iconName = focused
-                ? 'aliwangwang'
-                : 'aliwangwang-o1';
+                ? 'aliwangwang-o1'
+                : 'aliwangwang';
             }
   
 
